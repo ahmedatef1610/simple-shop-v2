@@ -1,0 +1,57 @@
+<%- include("parts/header") %>
+
+<%- include("parts/navbar") %>
+
+<div class="container py-3">
+
+    <form action="/" method="get">
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" name="category">
+                <option value="all">all</option>
+                <option value="clothes">clothes</option>
+                <option value="phones">phones</option>
+                <option value="computers">computers</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-2 btn-block">Filter</button>
+        </div>
+    </form>
+
+    <% if(validationError) { %>
+        <p class="alert alert-danger">
+            <%= validationError.msg%>
+        </p>
+    <% } %>
+
+    <%if(products.length==0){%>
+    <div class="alert alert-danger">
+        there is no products
+    </div>
+    <%}else{%>
+    <div class="row">
+        <% for (let product of products) { %>
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+            <div class="card" style="height: 100%;">
+                <img src="/<%= product.image %>" class="card-img-top" alt="<%= product.name %>">
+                <div class="card-body d-flex flex-column justify-content-end">
+                    <h5 class="card-title"><a href="/product/<%= product._id %>"><%= product.name %></a></h5>
+                    <p class="card-text">Price : <%= product.price %> $</p>
+                    <form action="/cart/" method="POST">
+                        <input type="number" placeholder="amount" name="amount" class="form-control">
+                        <input type="hidden" name="name" value="<%= product.name%>">
+                        <input type="hidden" name="price" value="<%= product.price%>">
+                        <input type="hidden" name="productId" value="<%= product._id%>">
+                        <input type="hidden" name="redirectTo" value="/">
+                        <button type="submit" class="btn btn-block btn-primary mt-2">Add to cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    <%}%>
+
+
+</div>
+
+<%- include("parts/footer") %>

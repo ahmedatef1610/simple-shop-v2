@@ -1,0 +1,61 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container py-3">
+    <h2 class="mb-5">Add Product</h2>
+
+    <% if(productAdded) { %>
+    <p class="alert alert-success">
+        Product added successfully
+    </p>
+    <% } %>
+
+    <form action="/admin/add" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Name">
+            <% let nameError = validationErrors.find(err => err.param === 'name') %>
+            <% if (nameError) { %>
+            <small class="form-text text-muted"> <%= nameError.msg %> </small>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" name="price" placeholder="Price">
+            <% let priceError = validationErrors.find(err => err.param === 'price') %>
+            <% if (priceError) { %>
+            <small class="form-text text-muted"> <%= priceError.msg %> </small>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <textarea type="password" class="form-control" name="description" placeholder="Description"></textarea>
+            <% let descriptionError = validationErrors.find(err => err.param === 'description') %>
+            <% if (descriptionError) { %>
+            <small class="form-text text-muted"> <%= descriptionError.msg %> </small>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <select type="password" class="form-control" name="category">
+                <option value="" selected>Choose a category</option>
+                <option value="clothes">Clothes</option>
+                <option value="phones">Phones</option>
+                <option value="computers">Computers</option>
+            </select>
+            <% let categoryError = validationErrors.find(err => err.param === 'category') %>
+            <% if (categoryError) { %>
+            <small class="form-text text-muted"> <%= categoryError.msg %> </small>
+            <% } %>
+        </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file" name="image" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <% let imageError = validationErrors.find(err => err.param === 'image') %>
+            <% if (imageError) { %>
+            <small class="form-text text-muted"> <%= imageError.msg %> </small>
+            <% } %>
+        </div>
+        <input type="submit" value="Add Product" class="btn btn-primary btn-block">
+    </form>
+</div>
+
+<%- include('parts/footer')%>

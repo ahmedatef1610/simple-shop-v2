@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/"><img src="/image/icon.png" class="img-fluid" alt="icon" width="40"></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item <%= path === '/' ? 'active' : '' %>">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <% if(isUser) { %>
+                <li class="nav-item <%= path === '/cart' ? 'active' : '' %>">
+                    <a class="nav-link" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item <%= path === '/orders' ? 'active' : '' %>">
+                    <a class="nav-link" href="/orders">Orders</a>
+                </li>
+                <% } else { %>
+                <li class="nav-item <%= path === '/auth/login' ? 'active' : '' %>">
+                    <a class="nav-link" href="/auth/login">Login</a>
+                </li>
+                <li class="nav-item <%= path === '/auth/signup' ? 'active' : '' %>">
+                    <a class="nav-link" href="/auth/signup">Signup</a>
+                </li>
+                <% } %>
+                <% if(isAdmin) { %>
+                <li class="nav-item <%= path === '/admin/add' ? 'active' : '' %>">
+                    <a class="nav-link" href="/admin/add">Add Product</a>
+                </li>
+                
+                <li class="nav-item <%= path === '/admin/orders' ? 'active' : '' %>">
+                    <a class="nav-link" href="/admin/orders">Manage Orders</a>
+                </li>
+            
+                <% } %>
+            </ul>
+            <% if(isUser) { %>
+            <form action="/auth/logout" method="post">
+                <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+            </form>
+            <% } %>
+        </div>
+    </div>
+</nav>

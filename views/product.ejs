@@ -1,0 +1,45 @@
+<%- include("parts/header") %>
+
+<%- include("parts/navbar") %>
+
+<div class="container py-3">
+    <% if(validationError) { %>
+        <p class="alert alert-danger">
+            <%= validationError.msg%>
+        </p>
+    <% } %>
+
+    <%if(!product){%>
+        <div class="alert alert-danger">
+            there is no product matches this id
+        </div>
+    <%}else{%>
+        <div class="row">
+            <div class="col col-12 col-md-6 p-5">
+                <div class="mb-3">
+                    <img src="/<%= product.image %>" alt="<%= product.name%>">
+                </div>
+                <form action="/cart/" method="POST">
+                    <input type="number" placeholder="amount" name="amount" class="form-control">
+                    <input type="hidden" name="name" value="<%= product.name%>">
+                    <input type="hidden" name="price" value="<%= product.price%>">
+                    <input type="hidden" name="productId" value="<%= product._id%>">
+                    <input type="hidden" name="redirectTo" value="/product/<%= product._id%>">
+                    <button type="submit" class="btn btn-block btn-primary mt-2">Add to cart</button>
+                </form>
+            </div>
+            <div class="col col-12 col-md-6 p-5">
+                <h3><%= product.name%></h3>
+                <h5>Price: <%= product.price%> $</h5>
+                <p><%= product.description%></p>
+            </div>
+        </div>
+    <%}%>
+
+
+
+
+
+</div>
+
+<%- include("parts/footer") %>
